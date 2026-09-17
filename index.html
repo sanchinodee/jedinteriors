@@ -67,6 +67,56 @@
             gap: 24px;
             background: linear-gradient(135deg, #0b1220 0%, #111827 100%);
             transition: opacity 1.8s ease, visibility 1.8s ease;
+            overflow: hidden;
+        }
+
+        .paint-splash {
+            position: absolute;
+            inset: -22% -15%;
+            background:
+                radial-gradient(circle at 14% 28%, rgba(255, 247, 196, 0.98) 0%, rgba(255, 247, 196, 0.72) 7%, rgba(255, 247, 196, 0) 18%),
+                radial-gradient(circle at 30% 70%, rgba(255, 210, 76, 0.9) 0%, rgba(255, 210, 76, 0.44) 8%, rgba(255, 210, 76, 0) 20%),
+                radial-gradient(circle at 62% 17%, rgba(255, 188, 35, 0.96) 0%, rgba(255, 188, 35, 0.44) 8%, rgba(255, 188, 35, 0) 19%),
+                radial-gradient(circle at 82% 72%, rgba(234, 180, 26, 0.92) 0%, rgba(234, 180, 26, 0.38) 8%, rgba(234, 180, 26, 0) 19%),
+                radial-gradient(circle at 48% 54%, rgba(255, 213, 90, 0.75) 0%, rgba(255, 213, 90, 0.18) 12%, rgba(255, 213, 90, 0) 23%),
+                linear-gradient(128deg, rgba(247, 205, 82, 1) 0%, rgba(227, 174, 31, 0.92) 28%, rgba(255, 197, 46, 0.76) 100%);
+            filter: blur(3px);
+            opacity: 0;
+            transform: scale(1.95) rotate(-8deg);
+            animation: paintReveal 1.6s cubic-bezier(.22,.8,.2,1) forwards;
+        }
+
+        .paint-splash::before,
+        .paint-splash::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+
+        .paint-splash::before {
+            background:
+                linear-gradient(108deg, transparent 0 14%, rgba(255,255,255,0.24) 19%, transparent 25%),
+                linear-gradient(140deg, transparent 0 32%, rgba(255,255,255,0.2) 38%, transparent 43%),
+                linear-gradient(72deg, transparent 0 54%, rgba(255,255,255,0.18) 60%, transparent 66%),
+                linear-gradient(165deg, transparent 0 20%, rgba(255,255,255,0.18) 26%, transparent 32%),
+                linear-gradient(18deg, transparent 0 69%, rgba(255,255,255,0.2) 73%, transparent 78%),
+                linear-gradient(96deg, transparent 0 47%, rgba(255,255,255,0.15) 52%, transparent 58%);
+            mix-blend-mode: screen;
+            opacity: 0.96;
+        }
+
+        .paint-splash::after {
+            background-image:
+                radial-gradient(circle at 18% 34%, rgba(255,255,255,0.28) 0 6%, transparent 9%),
+                radial-gradient(circle at 33% 17%, rgba(255,255,255,0.22) 0 7%, transparent 10%),
+                radial-gradient(circle at 52% 28%, rgba(255,255,255,0.3) 0 8%, transparent 11%),
+                radial-gradient(circle at 66% 62%, rgba(255,255,255,0.24) 0 8%, transparent 11%),
+                radial-gradient(circle at 78% 39%, rgba(255,255,255,0.18) 0 7%, transparent 10%),
+                radial-gradient(circle at 47% 79%, rgba(255,255,255,0.18) 0 8%, transparent 11%);
+            background-size: 100% 100%;
+            opacity: 1;
         }
 
         .welcome-screen.hidden {
@@ -76,6 +126,8 @@
         }
 
         .welcome-screen img {
+            position: relative;
+            z-index: 2;
             width: min(270px, 56vw);
             height: auto;
             display: block;
@@ -86,24 +138,28 @@
         }
 
         .loader-bar {
+            position: relative;
+            z-index: 2;
             width: min(260px, 64vw);
             height: 14px;
             border-radius: 999px;
             overflow: hidden;
             background: rgba(255, 255, 255, 0.12);
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-            position: relative;
         }
 
         .loader-fill {
             display: block;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #f3c94b 0%, #d4a017 50%, #f3c94b 100%);
+            background:
+                radial-gradient(circle at 15% 50%, rgba(255,255,255,0.45) 0 8%, transparent 10%),
+                linear-gradient(90deg, #f7d76a 0%, #f0c84f 35%, #d99d00 55%, #f7d76a 100%);
             border-radius: inherit;
+            clip-path: polygon(0 48%, 12% 40%, 28% 52%, 48% 44%, 61% 58%, 83% 46%, 100% 52%, 100% 100%, 0 100%);
             transform: scaleX(0);
             transform-origin: left center;
-            transition: transform 0.1s linear;
+            transition: transform 0.08s linear;
             box-shadow: 0 0 18px rgba(243, 201, 75, 0.35);
         }
 
@@ -120,6 +176,23 @@
             text-transform: uppercase;
             pointer-events: none;
             z-index: 2;
+        }
+
+        @keyframes paintReveal {
+            0% {
+                opacity: 0;
+                transform: scale(2) rotate(-10deg);
+            }
+            18% {
+                opacity: 0.7;
+            }
+            52% {
+                opacity: 0.98;
+            }
+            100% {
+                opacity: 0.9;
+                transform: scale(1.06) rotate(2deg);
+            }
         }
 
         @keyframes logoFadeIn {
@@ -1010,6 +1083,7 @@
 <body>
 
     <div class="welcome-screen" id="welcomeScreen" aria-live="polite">
+        <div class="paint-splash" aria-hidden="true"></div>
         <img src="./jedlogo.png" alt="JED Interiors Logo">
         <div class="loader-bar" aria-live="polite">
             <span class="loader-fill" id="loaderFill"></span>
