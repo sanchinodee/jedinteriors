@@ -1,0 +1,1833 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JED Interiors Ltd | Painting & Plastering | Waikato</title>
+
+    <meta name="description"
+          content="JED Interiors Ltd provides professional painting and plastering services throughout Hamilton and Waikato for residential and commercial projects.">
+
+
+    <style>
+
+        /* =========================================================
+           GENERAL
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --dark: #111827;
+            --dark2: #1f2937;
+            --gold: #d4a017;
+            --gold-light: #f3c94b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .page-shell {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .page-shell.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .welcome-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0b1220 0%, #111827 100%);
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .welcome-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .welcome-screen img {
+            width: min(270px, 56vw);
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 16px 28px rgba(0,0,0,0.25));
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            background: rgba(17, 24, 39, 0.96);
+
+            backdrop-filter: blur(10px);
+
+            padding: 18px 6%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--gold-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .menu-btn {
+            display: none;
+            color: white;
+            font-size: 27px;
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            position: relative;
+            overflow: hidden;
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding: 120px 7% 70px;
+
+            color: white;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1.2s ease-in-out;
+            opacity: 0;
+        }
+
+        .hero-bg-current {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .tag {
+            display: inline-block;
+
+            color: var(--gold-light);
+
+            border-left: 4px solid var(--gold);
+
+            padding-left: 12px;
+
+            margin-bottom: 20px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 7vw, 82px);
+
+            line-height: 1.03;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: var(--gold-light);
+        }
+
+        .hero p {
+            font-size: 19px;
+
+            max-width: 650px;
+
+            color: #e5e7eb;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .buttons {
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 14px 27px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            border-radius: 5px;
+
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b88908;
+
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid white;
+
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+
+            color: var(--dark);
+        }
+
+
+        /* =========================================================
+           STATS
+        ========================================================= */
+
+        .stats {
+            background: var(--gold);
+
+            color: var(--dark);
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            text-align: center;
+        }
+
+        .stat {
+            padding: 30px 15px;
+
+            border-right: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat h2 {
+            font-size: 38px;
+
+            line-height: 1;
+        }
+
+        .stat p {
+            font-weight: bold;
+
+            margin-top: 8px;
+        }
+
+
+        /* =========================================================
+           GENERAL SECTION
+        ========================================================= */
+
+        section {
+            padding: 90px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+
+            max-width: 700px;
+
+            margin: 0 auto 55px;
+        }
+
+        .section-title small {
+            color: var(--gold);
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            font-weight: bold;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+
+            margin: 10px 0 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 70px;
+
+            align-items: center;
+
+            background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+
+            border-radius: 18px;
+
+            padding: 40px 40px;
+        }
+
+        .about-image {
+
+            min-height: 500px;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+            background: #0f172a;
+        }
+
+        .about-image video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            object-fit: cover;
+            background: #0f172a;
+        }
+
+        .about-text small {
+            color: var(--gold-light);
+
+            text-transform: uppercase;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+        }
+
+        .about-text h2 {
+            font-size: 42px;
+
+            line-height: 1.1;
+
+            margin: 12px 0 20px;
+
+            color: white;
+        }
+
+        .about-text p {
+            color: #dbe4f0;
+
+            margin-bottom: 18px;
+        }
+
+        .check-list {
+            list-style: none;
+
+            margin-top: 25px;
+        }
+
+        .check-list li {
+            margin: 12px 0;
+
+            font-weight: bold;
+
+            color: white;
+        }
+
+        .check-list li::before {
+            content: "✓";
+
+            color: var(--gold-light);
+
+            margin-right: 10px;
+
+            font-size: 20px;
+        }
+
+
+        /* =========================================================
+           SERVICES
+        ========================================================= */
+
+        .services-section {
+            background: var(--light);
+        }
+
+        .services {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .service {
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 8px;
+
+            border-bottom: 4px solid transparent;
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+
+            transition: 0.3s;
+        }
+
+        .service:hover {
+
+            transform: translateY(-7px);
+
+            border-bottom-color: var(--gold);
+        }
+
+        .service-icon {
+
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #fff5d6;
+
+            color: var(--gold);
+
+            font-size: 27px;
+
+            border-radius: 50%;
+
+            margin-bottom: 20px;
+        }
+
+        .service h3 {
+
+            margin-bottom: 12px;
+
+            font-size: 22px;
+        }
+
+        .service p {
+            color: var(--gray);
+        }
+
+
+        /* =========================================================
+           EXPERIENCE
+        ========================================================= */
+
+        .experience {
+
+            background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+
+            color: white;
+        }
+
+        .experience-content {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            text-align: center;
+        }
+
+        .experience h2 {
+
+            font-size: 43px;
+
+            margin-bottom: 20px;
+
+            color: white;
+        }
+
+        .experience > div > p {
+
+            color: #dbe4f0;
+
+            max-width: 750px;
+
+            margin: auto;
+        }
+
+        .timeline {
+
+            margin-top: 55px;
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .timeline-card {
+
+            padding: 30px 20px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 8px;
+        }
+
+        .timeline-card h3 {
+
+            color: var(--gold-light);
+
+            margin-bottom: 10px;
+        }
+
+        .timeline-card p {
+
+            color: #cbd5e1;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           PROJECT
+        ========================================================= */
+
+        .project {
+
+            display: grid;
+
+            grid-template-columns: 1.1fr 0.9fr;
+
+            gap: 60px;
+
+            align-items: center;
+        }
+
+        .project-image {
+
+            height: 480px;
+
+            border-radius: 10px;
+
+            background:
+
+                linear-gradient(
+                    rgba(0, 0, 0, 0.1),
+                    rgba(0, 0, 0, 0.1)
+                ),
+
+                url("./images/project.jpg") center/cover;
+        }
+
+        .project-text small {
+
+            color: var(--gold);
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            font-weight: bold;
+        }
+
+        .project-text h2 {
+
+            font-size: 43px;
+
+            margin: 12px 0 20px;
+        }
+
+        .project-text p {
+
+            color: var(--gray);
+
+            margin-bottom: 20px;
+        }
+
+        .project-highlight {
+
+            border-left: 4px solid var(--gold);
+
+            padding: 15px 20px;
+
+            background: var(--light);
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================================
+           CLIENTS
+        ========================================================= */
+
+        .clients {
+
+            background: #f8fafc;
+
+            text-align: center;
+        }
+
+        .client-grid {
+
+            max-width: 1100px;
+
+            margin: 0 auto 25px;
+
+            display: grid;
+
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+
+            gap: 18px;
+        }
+
+        .client {
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+        }
+
+        .client video {
+            display: block;
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            object-position: center;
+            background: #0f172a;
+            opacity: 1;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .client video:hover {
+            opacity: 0.95;
+            transform: scale(1.02);
+        }
+
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 4 / 3;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+        }
+
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta {
+
+            background:
+
+                linear-gradient(
+                    rgba(17, 24, 39, 0.9),
+                    rgba(17, 24, 39, 0.9)
+                ),
+
+                url("./images/contact.jpg") center/cover;
+
+            text-align: center;
+
+            color: white;
+        }
+
+        .cta h2 {
+
+            font-size: 48px;
+
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+
+            color: #d1d5db;
+
+            max-width: 650px;
+
+            margin: 0 auto 30px;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            background: #080d16;
+
+            color: white;
+
+            padding: 50px 7% 25px;
+        }
+
+        .footer-grid {
+
+            display: grid;
+
+            grid-template-columns: 2fr 1fr 1fr;
+
+            gap: 50px;
+
+            margin-bottom: 40px;
+        }
+
+        footer h3 {
+
+            margin-bottom: 15px;
+        }
+
+        footer p,
+        footer li {
+
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+        footer ul {
+
+            list-style: none;
+        }
+
+        footer li {
+
+            margin: 8px 0;
+        }
+
+        .copyright {
+
+            border-top: 1px solid #1e293b;
+
+            padding-top: 20px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================================
+           TABLET
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+
+                position: absolute;
+
+                top: 70px;
+
+                left: 0;
+
+                width: 100%;
+
+                background: var(--dark);
+
+                flex-direction: column;
+
+                align-items: center;
+
+                padding: 25px;
+
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .about,
+            .project {
+                grid-template-columns: 1fr;
+            }
+
+            .services {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .client-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 600px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid rgba(0, 0, 0, 0.15);
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            .client-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero {
+
+                padding-left: 6%;
+
+                padding-right: 6%;
+            }
+
+            section {
+                padding: 65px 6%;
+            }
+
+            .section-title h2,
+            .about-text h2,
+            .project-text h2,
+            .experience h2,
+            .cta h2 {
+
+                font-size: 34px;
+            }
+
+            .about-image,
+            .project-image {
+
+                min-height: 350px;
+
+                height: 350px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="welcome-screen" id="welcomeScreen" aria-live="polite">
+        <img src="./jedlogo.png" alt="JED Interiors Logo">
+    </div>
+
+    <div class="page-shell" id="pageShell">
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav>
+
+    <div class="logo">
+        <img src="./jedlogo.png" alt="JED Interiors" style="height: 46px; width: auto; display: block;">
+    </div>
+
+    <div class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+
+        <li>
+            <a href="#home">Home</a>
+        </li>
+
+        <li>
+            <a href="#about">About</a>
+        </li>
+
+        <li>
+            <a href="#services">Services</a>
+        </li>
+
+        <li>
+            <a href="#experience">Experience</a>
+        </li>
+
+        <li>
+            <a href="#contact">Contact</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-bg hero-bg-current"></div>
+    <div class="hero-bg hero-bg-next"></div>
+
+    <div class="hero-content">
+
+        <div class="tag">
+            Painting & Plastering Specialists
+        </div>
+
+        <h1>
+
+            Quality Finish.
+            <br>
+
+            <span>Every Project.</span>
+
+        </h1>
+
+        <p>
+
+            Professional painting and plastering services
+            throughout Hamilton and Waikato for residential
+            and commercial new builds, renovations and
+            property projects.
+
+        </p>
+
+        <div class="buttons">
+
+            <a href="#contact"
+               class="btn btn-primary">
+
+                Request a Quote
+
+            </a>
+
+            <a href="#services"
+               class="btn btn-outline">
+
+                Our Services
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<div class="stats">
+
+    <div class="stat">
+
+        <h2>20+</h2>
+
+        <p>
+            Years Experience
+        </p>
+
+    </div>
+
+
+    <div class="stat">
+
+        <h2>29</h2>
+
+        <p>
+            Units Recently Completed
+        </p>
+
+    </div>
+
+
+    <div class="stat">
+
+        <h2>100%</h2>
+
+        <p>
+            Quality & Efficiency
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section id="about">
+
+    <div class="about">
+
+        <div class="about-image">
+            <video autoplay muted loop playsinline preload="metadata">
+                <source src="./2811.mp4" type="video/mp4">
+            </video>
+        </div>
+
+
+        <div class="about-text">
+
+            <small>
+                About JED Interiors
+            </small>
+
+            <h2>
+
+                Experienced Tradesmen.
+                Professional Results.
+
+            </h2>
+
+            <p>
+
+                JED Interiors Ltd is a painting and plastering
+                company based in Hamilton, providing professional
+                services throughout Waikato.
+
+            </p>
+
+            <p>
+
+                Our director, Jed, is an experienced painter
+                and plasterer with 20 years of local and
+                overseas experience working on residential
+                and commercial new builds and renovations.
+
+            </p>
+
+            <p>
+
+                We focus on delivering high-quality workmanship
+                while maintaining efficient project completion
+                times.
+
+            </p>
+
+
+            <ul class="check-list">
+
+                <li>
+                    Residential & Commercial
+                </li>
+
+                <li>
+                    New Builds & Renovations
+                </li>
+
+                <li>
+                    Interior & Exterior Painting
+                </li>
+
+                <li>
+                    Professional Plastering
+                </li>
+
+                <li>
+                    Quality & Time-Efficient Service
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+
+<section class="services-section"
+         id="services">
+
+
+    <div class="section-title">
+
+        <small>
+            What We Do
+        </small>
+
+        <h2>
+            Our Services
+        </h2>
+
+        <p>
+
+            Professional finishing services for residential,
+            commercial and new-build projects.
+
+        </p>
+
+    </div>
+
+
+    <div class="services">
+
+
+        <div class="service">
+
+            <div class="service-icon">
+                🎨
+            </div>
+
+            <h3>
+                Interior Painting
+            </h3>
+
+            <p>
+
+                Professional interior painting designed
+                to provide clean, consistent and
+                high-quality finishes.
+
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-icon">
+                🏠
+            </div>
+
+            <h3>
+                Exterior Painting
+            </h3>
+
+            <p>
+
+                Durable exterior painting solutions
+                for homes, developments and
+                commercial properties.
+
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-icon">
+                🧱
+            </div>
+
+            <h3>
+                Plastering
+            </h3>
+
+            <p>
+
+                Professional plastering work to create
+                smooth, prepared surfaces ready
+                for finishing.
+
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-icon">
+                🔨
+            </div>
+
+            <h3>
+                New Builds
+            </h3>
+
+            <p>
+
+                Painting and plastering services for
+                residential and commercial
+                new-build projects.
+
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-icon">
+                🏗️
+            </div>
+
+            <h3>
+                Renovations
+            </h3>
+
+            <p>
+
+                Quality finishing work for renovation
+                and refurbishment projects.
+
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-icon">
+                ✨
+            </div>
+
+            <h3>
+                Complete Finishing
+            </h3>
+
+            <p>
+
+                Reliable workmanship focused on
+                high-quality results and efficient
+                project completion.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERIENCE
+========================================================= -->
+
+<section class="experience"
+         id="experience">
+
+
+    <div class="experience-content">
+
+        <h2>
+            20 Years of Experience
+        </h2>
+
+        <p>
+
+            Our experience includes local and overseas
+            painting and plastering work across residential
+            and commercial construction, new builds
+            and renovations.
+
+        </p>
+
+
+        <div class="timeline">
+
+
+            <div class="timeline-card">
+
+                <h3>
+                    Professional Background
+                </h3>
+
+                <p>
+
+                    Previous experience with
+                    JL Connolly and Global Linings.
+
+                </p>
+
+            </div>
+
+
+            <div class="timeline-card">
+
+                <h3>
+                    Subcontractor Experience
+                </h3>
+
+                <p>
+
+                    Worked with leading builders
+                    and organisations across residential
+                    and commercial projects.
+
+                </p>
+
+            </div>
+
+
+            <div class="timeline-card">
+
+                <h3>
+                    Waikato & Beyond
+                </h3>
+
+                <p>
+
+                    Based in Hamilton and providing
+                    services throughout the Waikato region.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CLIENTS
+========================================================= -->
+
+<section class="clients">
+
+
+    <div class="section-title">
+
+        <small>
+            Our Experience
+        </small>
+
+        <h2>
+            Builders & Organisations
+        </h2>
+
+        <p>
+
+            We have worked with a range of established
+            builders, organisations and property groups.
+
+        </p>
+
+    </div>
+
+
+    <div class="client-grid">
+
+        <div class="client">
+            <video controls muted playsinline preload="metadata" autoplay loop>
+                <source src="./2411.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="client">
+            <video controls muted playsinline preload="metadata" autoplay loop>
+                <source src="./2511.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="client">
+            <video controls muted playsinline preload="metadata" autoplay loop>
+                <source src="./2611.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="client">
+            <video controls muted playsinline preload="metadata" autoplay loop>
+                <source src="./2711.mp4" type="video/mp4">
+            </video>
+        </div>
+
+    </div>
+
+    <div class="gallery-grid">
+        <div class="gallery-item" style="background-image: url('./11.jpg');"></div>
+        <div class="gallery-item" style="background-image: url('./12.jpg');"></div>
+        <div class="gallery-item" style="background-image: url('./13.jpg');"></div>
+        <div class="gallery-item" style="background-image: url('./14.jpg');"></div>
+        <div class="gallery-item" style="background-image: url('./15.jpg');"></div>
+        <div class="gallery-item" style="background-image: url('./16.jpg');"></div>
+        <div class="gallery-item" style="background-image: url('./17.jpg');"></div>
+        <div class="gallery-item" style="background-image: url('./18.jpg');"></div>
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT / CTA
+========================================================= -->
+
+<section class="cta"
+         id="contact">
+
+
+    <h2>
+        Ready to Start Your Project?
+    </h2>
+
+    <p>
+
+        Talk to JED Interiors Ltd about your next
+        painting, plastering, new-build or renovation
+        project in Hamilton and throughout Waikato.
+
+    </p>
+
+
+    <div class="buttons"
+         style="justify-content:center;">
+
+
+        <!-- CHANGE EMAIL HERE -->
+
+        <a href="mailto:jedinteriors.nz@gmail.com"
+           class="btn btn-primary">
+
+            Request a Quote
+
+        </a>
+
+
+        <!-- CHANGE PHONE NUMBER HERE -->
+
+        <a href="tel:+64224686074"
+           class="btn btn-outline">
+
+            Call Us
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+    <div class="footer-grid">
+
+
+        <div>
+
+            <h3>
+
+                JED
+                <span style="color:#f3c94b;">
+                    INTERIORS
+                </span>
+
+            </h3>
+
+            <p>
+
+                Professional painting and plastering
+                services based in Hamilton and
+                serving Waikato.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Services
+            </h3>
+
+            <ul>
+
+                <li>
+                    Interior Painting
+                </li>
+
+                <li>
+                    Exterior Painting
+                </li>
+
+                <li>
+                    Plastering
+                </li>
+
+                <li>
+                    New Builds
+                </li>
+
+                <li>
+                    Renovations
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Location
+            </h3>
+
+            <p>
+                Hamilton, Waikato
+            </p>
+
+            <p>
+                New Zealand
+            </p>
+
+            <p>
+                Email: jedinteriors.nz@gmail.com
+            </p>
+
+            <p>
+                Phone: 022 468 6074
+            </p>
+
+            <br>
+
+            <p>
+                Serving clients throughout Waikato.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 JED Interiors Ltd.
+        All Rights Reserved.
+
+    </div>
+
+
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================= */
+
+    function toggleMenu() {
+
+        document
+            .getElementById("navLinks")
+            .classList
+            .toggle("active");
+
+    }
+
+
+    /*
+     * Close mobile menu after clicking a link
+     */
+
+    document
+        .querySelectorAll(".nav-links a")
+        .forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                document
+                    .getElementById("navLinks")
+                    .classList
+                    .remove("active");
+
+            });
+
+        });
+
+
+    /* =========================================================
+       LOCAL IMAGE CONFIGURATION
+
+       Folder structure MUST be:
+
+       Your Website Folder/
+       ├── index.html
+       └── images/
+           ├── 1.jpg
+           ├── 2.jpg
+           ├── 3.jpg
+           ├── 4.jpg
+           ├── about.jpg
+           ├── project.jpg
+           └── contact.jpg
+
+       IMPORTANT:
+       - Keep the folder name exactly "images"
+       - Keep the file names exactly as listed above
+       - Do not put the images inside another folder
+    ========================================================= */
+
+    const IMAGE_DIR = "./";
+
+    /*
+     * This function resolves the local image path.
+     */
+    function getLocalImage(fileName) {
+        return IMAGE_DIR + fileName;
+    }
+
+
+    /*
+     * Apply the local images to the other background sections.
+     * Using JavaScript here avoids problems caused by opening the
+     * HTML directly from the Windows file:// location.
+     */
+    window.addEventListener("DOMContentLoaded", function() {
+        const aboutImage = document.querySelector(".about-image");
+        const projectImage = document.querySelector(".project-image");
+        const cta = document.querySelector(".cta");
+
+        if (aboutImage) {
+            aboutImage.style.backgroundImage =
+                'linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url("' +
+                getLocalImage("about.jpg") + '")';
+        }
+
+        if (projectImage) {
+            projectImage.style.backgroundImage =
+                'linear-gradient(rgba(0,0,0,0.10), rgba(0,0,0,0.10)), url("' +
+                getLocalImage("project.jpg") + '")';
+        }
+
+        if (cta) {
+            cta.style.backgroundImage =
+                'linear-gradient(rgba(17,24,39,0.90), rgba(17,24,39,0.90)), url("' +
+                getLocalImage("contact.jpg") + '")';
+        }
+    });
+
+
+    /* =========================================================
+       HERO IMAGE SLIDESHOW
+       LOCAL IMAGES ONLY
+    ========================================================= */
+
+
+    const heroImages = [
+        getLocalImage("11.jpg"),
+        getLocalImage("12.jpg"),
+        getLocalImage("13.jpg"),
+        getLocalImage("14.jpg"),
+        getLocalImage("15.jpg")
+    ];
+
+    const heroBackgrounds = document.querySelectorAll(".hero-bg");
+
+    let currentImage = 0;
+    let activeLayer = 0;
+
+    function setHeroBackdrop(imageUrl, layer) {
+        layer.style.backgroundImage =
+            `linear-gradient(
+                rgba(10, 15, 25, 0.65),
+                rgba(10, 15, 25, 0.72)
+            ),
+            url("${imageUrl}")`;
+    }
+
+    setHeroBackdrop(heroImages[currentImage], heroBackgrounds[0]);
+    heroBackgrounds[0].classList.add("hero-bg-current");
+    heroBackgrounds[1].classList.add("hero-bg-next");
+    heroBackgrounds[1].style.opacity = "0";
+
+    heroImages.forEach(function(image) {
+
+        const img = new Image();
+
+        img.src = image;
+
+    });
+
+    setInterval(function() {
+
+        currentImage = (currentImage + 1) % heroImages.length;
+
+        const nextLayer = (activeLayer + 1) % heroBackgrounds.length;
+        setHeroBackdrop(heroImages[currentImage], heroBackgrounds[nextLayer]);
+
+        heroBackgrounds[nextLayer].style.opacity = "1";
+        heroBackgrounds[activeLayer].style.opacity = "0";
+
+        activeLayer = nextLayer;
+
+    }, 3000);
+
+    window.addEventListener('load', function() {
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const pageShell = document.getElementById('pageShell');
+
+        setTimeout(function() {
+            if (welcomeScreen) {
+                welcomeScreen.classList.add('hidden');
+            }
+
+            if (pageShell) {
+                pageShell.classList.add('visible');
+            }
+
+            document.body.style.overflow = 'auto';
+        }, 1200);
+    });
+
+</script>
+
+    </div>
+
+</body>
+
+</html>
+```
