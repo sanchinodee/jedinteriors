@@ -87,7 +87,7 @@
 
         .loader-bar {
             width: min(260px, 64vw);
-            height: 8px;
+            height: 14px;
             border-radius: 999px;
             overflow: hidden;
             background: rgba(255, 255, 255, 0.12);
@@ -101,18 +101,25 @@
             height: 100%;
             background: linear-gradient(90deg, #f3c94b 0%, #d4a017 50%, #f3c94b 100%);
             border-radius: inherit;
-            transform: translateX(-100%);
-            animation: loaderMove 2.4s ease-in-out forwards;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.1s linear;
+            box-shadow: 0 0 18px rgba(243, 201, 75, 0.35);
         }
 
         .loader-percent {
-            color: #f3c94b;
-            font-size: 14px;
-            font-weight: 700;
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0b1220;
+            font-size: 10px;
+            font-weight: 800;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            min-width: 52px;
-            text-align: center;
+            pointer-events: none;
+            z-index: 2;
         }
 
         @keyframes logoFadeIn {
@@ -1004,9 +1011,9 @@
 
     <div class="welcome-screen" id="welcomeScreen" aria-live="polite">
         <img src="./jedlogo.png" alt="JED Interiors Logo">
-        <div class="loader-percent" id="loaderPercent">0%</div>
-        <div class="loader-bar" aria-hidden="true">
-            <span class="loader-fill"></span>
+        <div class="loader-bar" aria-live="polite">
+            <span class="loader-fill" id="loaderFill"></span>
+            <div class="loader-percent" id="loaderPercent">0%</div>
         </div>
     </div>
 
@@ -1869,18 +1876,25 @@
         const welcomeScreen = document.getElementById('welcomeScreen');
         const pageShell = document.getElementById('pageShell');
         const loaderPercent = document.getElementById('loaderPercent');
+        const loaderFill = document.getElementById('loaderFill');
 
         let progress = 0;
         const progressInterval = setInterval(function() {
-            progress += 5;
+            progress += 1;
+            const normalized = Math.min(progress, 100);
+
             if (loaderPercent) {
-                loaderPercent.textContent = progress + '%';
+                loaderPercent.textContent = normalized + '%';
             }
 
-            if (progress >= 100) {
+            if (loaderFill) {
+                loaderFill.style.transform = 'scaleX(' + normalized / 100 + ')';
+            }
+
+            if (normalized >= 100) {
                 clearInterval(progressInterval);
             }
-        }, 60);
+        }, 28);
 
         setTimeout(function() {
             if (welcomeScreen) {
@@ -1892,7 +1906,7 @@
             }
 
             document.body.style.overflow = 'auto';
-        }, 2600);
+        }, 2800);
     });
 
 </script>
