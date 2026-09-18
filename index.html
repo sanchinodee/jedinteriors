@@ -899,16 +899,67 @@
 
         .gallery-item {
             grid-column: 1 / -1;
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: #0f172a;
             border-radius: 10px;
             border: 1px solid #e5e7eb;
             box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
             overflow: hidden;
+            cursor: pointer;
         }
 
         .gallery-item img {
             display: block;
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            transition: opacity 0.25s ease;
+        }
+
+        .gallery-control {
+            position: absolute;
+            top: 50%;
+            z-index: 1;
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.72);
+            color: white;
+            font-size: 25px;
+            line-height: 1;
+            cursor: pointer;
+            transform: translateY(-50%);
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .gallery-control:hover {
+            background: var(--gold);
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .gallery-control.previous {
+            left: 16px;
+        }
+
+        .gallery-control.next {
+            right: 16px;
+        }
+
+        .gallery-counter {
+            position: absolute;
+            right: 16px;
+            bottom: 14px;
+            z-index: 1;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.72);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.08em;
         }
 
 
@@ -1650,7 +1701,10 @@
 
     <div class="gallery-grid">
         <div class="gallery-item">
-            <img src="./all.png" alt="JED Interiors project collage">
+            <img id="projectGalleryImage" src="./11.jpg" alt="JED Interiors project photo 11">
+            <button class="gallery-control previous" type="button" aria-label="Previous project photo">&#8249;</button>
+            <button class="gallery-control next" type="button" aria-label="Next project photo">&#8250;</button>
+            <div class="gallery-counter" id="galleryCounter">1 / 8</div>
         </div>
     </div>
 
@@ -1921,6 +1975,59 @@
         document.querySelectorAll("video").forEach(function(video) {
             video.playbackRate = 0.5;
         });
+
+        const galleryImage = document.getElementById("projectGalleryImage");
+        const galleryCounter = document.getElementById("galleryCounter");
+        const previousGalleryButton = document.querySelector(".gallery-control.previous");
+        const nextGalleryButton = document.querySelector(".gallery-control.next");
+        const galleryImages = [
+            "11.jpg",
+            "12.jpg",
+            "13.jpg",
+            "14.jpg",
+            "15.jpg",
+            "16.jpg",
+            "17.jpg",
+            "18.jpg"
+        ];
+        let galleryIndex = 0;
+
+        function showGalleryImage(nextIndex) {
+            galleryIndex = (nextIndex + galleryImages.length) % galleryImages.length;
+
+            if (galleryImage) {
+                galleryImage.style.opacity = "0";
+                setTimeout(function() {
+                    galleryImage.src = getLocalImage(galleryImages[galleryIndex]);
+                    galleryImage.alt = "JED Interiors project photo " + (galleryIndex + 11);
+                    galleryImage.style.opacity = "1";
+                }, 120);
+            }
+
+            if (galleryCounter) {
+                galleryCounter.textContent = (galleryIndex + 1) + " / " + galleryImages.length;
+            }
+        }
+
+        if (galleryImage) {
+            galleryImage.addEventListener("click", function() {
+                showGalleryImage(galleryIndex + 1);
+            });
+        }
+
+        if (previousGalleryButton) {
+            previousGalleryButton.addEventListener("click", function(event) {
+                event.stopPropagation();
+                showGalleryImage(galleryIndex - 1);
+            });
+        }
+
+        if (nextGalleryButton) {
+            nextGalleryButton.addEventListener("click", function(event) {
+                event.stopPropagation();
+                showGalleryImage(galleryIndex + 1);
+            });
+        }
     });
 
 
