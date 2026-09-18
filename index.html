@@ -517,6 +517,8 @@
             height: 100%;
             min-height: 500px;
             object-fit: cover;
+            object-position: center;
+            transform: scale(1.5);
             background: #0f172a;
         }
 
@@ -834,6 +836,7 @@
             height: 420px;
             object-fit: cover;
             object-position: center;
+            transform: scale(1.5);
             background: #0f172a;
             opacity: 1;
             transition: opacity 0.8s ease, transform 0.8s ease;
@@ -841,24 +844,29 @@
 
         .client video:hover {
             opacity: 0.95;
-            transform: scale(1.02);
+            transform: scale(1.52);
         }
 
         .gallery-grid {
-            max-width: 1200px;
-            margin: 30px auto 0;
+            max-width: 1100px;
+            margin: 25px auto 0;
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px;
+            gap: 18px;
         }
 
         .gallery-item {
-            aspect-ratio: 4 / 3;
-            border-radius: 8px;
-            background-size: cover;
-            background-position: center;
+            grid-column: 1 / -1;
+            border-radius: 10px;
             border: 1px solid #e5e7eb;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            display: block;
+            width: 100%;
+            height: auto;
         }
 
 
@@ -1597,14 +1605,9 @@
     </div>
 
     <div class="gallery-grid">
-        <div class="gallery-item" style="background-image: url('./11.jpg');"></div>
-        <div class="gallery-item" style="background-image: url('./12.jpg');"></div>
-        <div class="gallery-item" style="background-image: url('./13.jpg');"></div>
-        <div class="gallery-item" style="background-image: url('./14.jpg');"></div>
-        <div class="gallery-item" style="background-image: url('./15.jpg');"></div>
-        <div class="gallery-item" style="background-image: url('./16.jpg');"></div>
-        <div class="gallery-item" style="background-image: url('./17.jpg');"></div>
-        <div class="gallery-item" style="background-image: url('./18.jpg');"></div>
+        <div class="gallery-item">
+            <img src="./all.png" alt="JED Interiors project collage">
+        </div>
     </div>
 
 </section>
@@ -1870,6 +1873,10 @@
                 'linear-gradient(rgba(17,24,39,0.90), rgba(17,24,39,0.90)), url("' +
                 getLocalImage("contact.jpg") + '")';
         }
+
+        document.querySelectorAll("video").forEach(function(video) {
+            video.playbackRate = 0.5;
+        });
     });
 
 
