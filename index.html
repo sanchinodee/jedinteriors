@@ -2023,6 +2023,48 @@
 
     }, 3000);
 
+    const galleryImages = [
+        "11.jpg",
+        "12.jpg",
+        "13.jpg",
+        "14.jpg",
+        "15.jpg",
+        "16.jpg",
+        "17.jpg",
+        "18.jpg"
+    ];
+
+    const galleryImage = document.getElementById("projectGalleryImage");
+    const galleryCounter = document.getElementById("galleryCounter");
+    const prevGalleryButton = document.querySelector(".gallery-control.previous");
+    const nextGalleryButton = document.querySelector(".gallery-control.next");
+
+    let galleryIndex = 0;
+
+    function updateGallery() {
+        if (!galleryImage || !galleryCounter) return;
+
+        galleryImage.src = getLocalImage(galleryImages[galleryIndex]);
+        galleryImage.alt = "JED Interiors project photo " + (galleryIndex + 1);
+        galleryCounter.textContent = (galleryIndex + 1) + " / " + galleryImages.length;
+    }
+
+    if (prevGalleryButton) {
+        prevGalleryButton.addEventListener("click", function() {
+            galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateGallery();
+        });
+    }
+
+    if (nextGalleryButton) {
+        nextGalleryButton.addEventListener("click", function() {
+            galleryIndex = (galleryIndex + 1) % galleryImages.length;
+            updateGallery();
+        });
+    }
+
+    updateGallery();
+
     window.addEventListener('load', function() {
         const welcomeScreen = document.getElementById('welcomeScreen');
         const pageShell = document.getElementById('pageShell');
