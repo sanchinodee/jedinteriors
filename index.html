@@ -861,9 +861,10 @@
 
             display: grid;
 
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
 
             gap: 18px;
+            align-items: stretch;
         }
 
         .client {
@@ -877,6 +878,8 @@
             overflow: hidden;
 
             box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            display: flex;
+            align-items: stretch;
         }
 
         .client video {
@@ -1685,6 +1688,18 @@
         <div class="client">
             <video controls muted playsinline preload="metadata" autoplay loop>
                 <source src="./2711.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="client">
+            <video controls muted playsinline preload="metadata" autoplay loop>
+                <source src="./2922.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="client">
+            <video controls muted playsinline preload="metadata" autoplay loop>
+                <source src="./2923.mp4" type="video/mp4">
             </video>
         </div>
 
